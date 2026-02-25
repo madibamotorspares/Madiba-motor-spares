@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madiba Motor Spares</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+        body{line-height:1.6;color:#333}
+        header{background:#1d3557;color:white;padding:1rem;position:fixed;width:100%;top:0;z-index:1000}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        nav{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:1.5rem;font-weight:bold}
+        .cart{position:relative;cursor:pointer}
+        .cart-count{position:absolute;top:-8px;right:-8px;background:#e63946;color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px}
+        .hero{background:linear-gradient(135deg,#1d3557 0%,#457b9d 100%);color:white;padding:120px 0 60px;text-align:center}
+        .hero h1{font-size:2.5rem;margin-bottom:1rem}
+        .hero p{font-size:1.2rem;margin-bottom:2rem}
+        .btn{background:#e63946;color:white;padding:12px 24px;border:none;border-radius:5px;cursor:pointer;font-size:1rem}
+        .btn:hover{background:#c1121f}
+        .section{padding:60px 0}
+        .section-title{text-align:center;margin-bottom:40px}
+        .section-title h2{font-size:2rem;color:#1d3557}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+        .product-card{border:1px solid #ddd;border-radius:8px;padding:20px;text-align:center}
+        .product-card h3{color:#1d3557;margin-bottom:10px}
+        .product-card .price{color:#e63946;font-size:1.5rem;font-weight:bold;margin:10px 0}
+        .add-cart{background:#1d3557;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;width:100%}
+        .features{background:#1d3557;color:white}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center}
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+        .contact-info p{margin-bottom:10px}
+        form{display:flex;flex-direction:column;gap:15px}
+        input,textarea{padding:10px;border:1px solid #ddd;border-radius:5px}
+        textarea{min-height:100px}
+        footer{background:#1d3557;color:white;text-align:center;padding:20px}
+        .cart-sidebar{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:white;box-shadow:-2px 0 5px rgba(0,0,0,0.1);transition:right 0.3s;z-index:2000;padding:20px}
+        .cart-sidebar.open{right:0}
+        .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;z-index:1500}
+        .overlay.active{display:block}
+        @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.hero h1{font-size:1.8rem}}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Madiba Motor Spares</div>
+                <div class="cart" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Quality Car Parts for Every Journey</h1>
+            <p>South Africa's Trusted Motor Spares Store</p>
+            <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+        </div>
+    </section>
+
+    <section class="section" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Products</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <h3>Brake Pads - Front</h3>
+                    <p>Toyota Hilux 2016-2023</p>
+                    <div class="price">R450</div>
+                    <button class="add-cart" onclick="addToCart('Brake Pads - Front',450)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <h3>Brake Discs - Pair</h3>
+                    <p>VW Golf 7 2013-2020</p>
+                    <div class="price">R890</div>
+                    <button class="add-cart" onclick="addToCart('Brake Discs - Pair',890)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <h3>Oil Filter</h3>
+                    <p>Universal Petrol Engines</p>
+                    <div class="price">R85</div>
+                    <button class="add-cart" onclick="addToCart('Oil Filter',85)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <h3>Air Filter</h3>
+                    <p>Toyota Corolla 2014-2019</p>
+                    <div class="price">R120</div>
+                    <button class="add-cart" onclick="addToCart('Air Filter',120)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <h3>Spark Plugs - Set of 4</h3>
+                    <p>BMW 3 Series F30</p>
+                    <div class="price">R280</div>
+                    <button class="add-cart" onclick="addToCart('Spark Plugs - Set of 4',280)">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <h3>Car Battery - 12V 60Ah</h3>
+                    <p>Universal Fit</p>
+                    <div class="price">R1450</div>
+                    <button class="add-cart" onclick="addToCart('Car Battery - 12V 60Ah',1450)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color:white">Why Choose Us</h2>
+            </div>
+            <div class="features-grid">
+                <div>
+                    <h3>✓ Quality Guaranteed</h3>
+                    <p>OEM certified parts</p>
+                </div>
+                <div>
+                    <h3>✓ Fast Delivery</h3>
+                    <p>2-5 business days nationwide</p>
+                </div>
+                <div>
+                    <h3>✓ Expert Support</h3>
+                    <p>Professional assistance</p>
+                </div>
+                <div>
+                    <h3>✓ Best Prices</h3>
+                    <p>Competitive pricing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p><strong>Phone:</strong> 031 919 2491</p>
+                    <p><strong>Email:</strong> madibaspares46@gmail.com</p>
+                    <p><strong>Address:</strong> 3 Alexander Road, Isipingo Rail, 4130</p>
+                    <p><strong>Hours:</strong> Mon-Fri 8am-5pm, Sat 9am-1pm</p>
+                </div>
+                <form onsubmit="event.preventDefault();alert('Message sent!');this.reset()">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Madiba Motor Spares. All rights reserved.</p>
+            <p>3 Alexander Road, Isipingo Rail, 4130 | 031 919 2491 | madibaspares46@gmail.com</p>
+        </div>
+    </footer>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        <hr>
+        <p><strong>Total: R<span id="cartTotal">0</span></strong></p>
+        <button class="btn" onclick="checkout()" style="width:100%;margin-top:10px">Checkout</button>
+    </div>
+
+    <script>
+        let cart=[];
+        function addToCart(name,price){
+            cart.push({name,price});
+            updateCart();
+            alert(name+' added to cart!');
+        }
+        function updateCart(){
+            document.getElementById('cartCount').innerText=cart.length;
+            let items=document.getElementById('cartItems');
+            let total=0;
+            items.innerHTML=cart.map((item,i)=>{
+                total+=item.price;
+                return '<p>'+item.name+' - R'+item.price+' <button onclick="removeItem('+i+')" style="float:right;background:red;color:white;border:none;padding:2px 8px;cursor:pointer">X</button></p>';
+            }).join('');
+            document.getElementById('cartTotal').innerText=total;
+        }
+        function removeItem(index){
+            cart.splice(index,1);
+            updateCart();
+        }
+        function toggleCart(){
+            document.getElementById('cartSidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+        function checkout(){
+            if(cart.length===0){alert('Cart is empty!');return;}
+            let total=cart.reduce((sum,item)=>sum+item.price,0);
+            alert('Order Total: R'+total+'\\n\\nContact us to complete order:\\nPhone: 031 919 2491\\nEmail: madibaspares46@gmail.com');
+        }
+    </script>
+</body>
+</html>
