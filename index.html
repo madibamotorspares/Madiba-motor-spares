@@ -3,204 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madiba Motor Spares</title>
+    <title>Madiba Motor Spares - Quality Car Parts South Africa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-        body{line-height:1.6;color:#333}
-        header{background:#1d3557;color:white;padding:1rem;position:fixed;width:100%;top:0;z-index:1000}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+        body{line-height:1.6;color:#333;background:#f5f5f5}
+        header{background:rgba(0,0,0,0.95);color:white;padding:1rem 0;position:fixed;width:100%;top:0;z-index:1000;backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.1)}
         .container{max-width:1200px;margin:0 auto;padding:0 20px}
         nav{display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:1.5rem;font-weight:bold}
-        .cart{position:relative;cursor:pointer}
-        .cart-count{position:absolute;top:-8px;right:-8px;background:#e63946;color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px}
-        .hero{background:linear-gradient(135deg,#1d3557 0%,#457b9d 100%);color:white;padding:120px 0 60px;text-align:center}
-        .hero h1{font-size:2.5rem;margin-bottom:1rem}
-        .hero p{font-size:1.2rem;margin-bottom:2rem}
-        .btn{background:#e63946;color:white;padding:12px 24px;border:none;border-radius:5px;cursor:pointer;font-size:1rem}
-        .btn:hover{background:#c1121f}
-        .section{padding:60px 0}
+        .logo{font-size:1.5rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px}
+        .logo span{color:#f97316}
+        .nav-links{display:flex;gap:2rem;list-style:none}
+        .nav-links a{color:white;text-decoration:none;font-weight:500;transition:color 0.3s;font-size:0.95rem}
+        .nav-links a:hover{color:#f97316}
+        .cart-icon{position:relative;cursor:pointer;font-size:1.3rem;padding:8px;background:rgba(255,255,255,0.1);border-radius:8px}
+        .cart-count{position:absolute;top:-5px;right:-5px;background:#f97316;color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+        .hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:white;padding:140px 0 100px;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23f97316" stroke-width="0.5" opacity="0.1"/></svg>');background-size:300px;opacity:0.3}
+        .hero-content{position:relative;z-index:1}
+        .hero h1{font-size:2.8rem;font-weight:800;margin-bottom:1rem;line-height:1.2}
+        .hero h1 span{color:#f97316}
+        .hero p{font-size:1.1rem;margin-bottom:2rem;opacity:0.9;max-width:600px;margin-left:auto;margin-right:auto}
+        .btn{background:#f97316;color:white;padding:14px 28px;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;font-size:1rem}
+        .btn:hover{background:#ea580c;transform:translateY(-2px);box-shadow:0 10px 20px rgba(249,115,22,0.3)}
+        .stats{display:flex;justify-content:center;gap:60px;margin-top:50px;flex-wrap:wrap}
+        .stat{text-align:center}
+        .stat h3{color:#f97316;font-size:2.2rem;font-weight:800;margin-bottom:5px}
+        .stat p{color:rgba(255,255,255,0.8);font-size:0.9rem}
+        .vehicle-section{background:white;padding:60px 0}
+        .vehicle-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+        .vehicle-tab{background:#f1f5f9;border:none;padding:10px 20px;border-radius:25px;cursor:pointer;font-weight:500;transition:all 0.3s}
+        .vehicle-tab.active,.vehicle-tab:hover{background:#f97316;color:white}
+        .vehicle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+        .vehicle-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 0.3s}
+        .vehicle-card:hover{border-color:#f97316;transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,0.1)}
+        .vehicle-card h4{color:#1e293b;margin-bottom:5px}
+        .vehicle-card p{color:#64748b;font-size:0.85rem}
+        .products-section{background:#f1f5f9;padding:60px 0}
         .section-title{text-align:center;margin-bottom:40px}
-        .section-title h2{font-size:2rem;color:#1d3557}
-        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-        .product-card{border:1px solid #ddd;border-radius:8px;padding:20px;text-align:center}
-        .product-card h3{color:#1d3557;margin-bottom:10px}
-        .product-card .price{color:#e63946;font-size:1.5rem;font-weight:bold;margin:10px 0}
-        .add-cart{background:#1d3557;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;width:100%}
-        .features{background:#1d3557;color:white}
-        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center}
-        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-        .contact-info p{margin-bottom:10px}
-        form{display:flex;flex-direction:column;gap:15px}
-        input,textarea{padding:10px;border:1px solid #ddd;border-radius:5px}
-        textarea{min-height:100px}
-        footer{background:#1d3557;color:white;text-align:center;padding:20px}
-        .cart-sidebar{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:white;box-shadow:-2px 0 5px rgba(0,0,0,0.1);transition:right 0.3s;z-index:2000;padding:20px}
+        .section-title h2{font-size:2rem;color:#1e293b;margin-bottom:10px}
+        .section-title p{color:#64748b}
+        .category-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+        .category-tab{background:white;border:2px solid #e2e8f0;padding:10px 20px;border-radius:25px;cursor:pointer;font-weight:500;transition:all 0.3s}
+        .category-tab.active,.category-tab:hover{background:#f97316;color:white;border-color:#f97316}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+        .product-card{background:white;border-radius:16px;padding:25px;box-shadow:0 4px 6px rgba(0,0,0,0.05);transition:all 0.3s;border:1px solid #e2e8f0}
+        .product-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,0.1)}
+        .product-brand{color:#f97316;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+        .product-name{font-size:1.1rem;font-weight:700;color:#1e293b;margin-bottom:8px}
+        .product-fit{color:#64748b;font-size:0.9rem;margin-bottom:15px}
+        .product-footer{display:flex;justify-content:space-between;align-items:center;margin-top:15px;padding-top:15px;border-top:1px solid #e2e8f0}
+        .product-price{font-size:1.5rem;font-weight:800;color:#1e293b}
+        .add-btn{background:#1e293b;color:white;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s}
+        .add-btn:hover{background:#f97316}
+        .features-section{background:linear-gradient(135deg,#1e293b 0%,#334155 100%);color:white;padding:80px 0}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:40px}
+        .feature-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:30px;text-align:center;backdrop-filter:blur(10px)}
+        .feature-icon{font-size:2.5rem;margin-bottom:15px}
+        .feature-card h3{font-size:1.2rem;margin-bottom:10px}
+        .feature-card p{color:rgba(255,255,255,0.8);font-size:0.9rem}
+        .contact-section{background:white;padding:80px 0}
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+        .contact-info h3{font-size:1.5rem;color:#1e293b;margin-bottom:20px}
+        .contact-item{display:flex;align-items:flex-start;gap:15px;margin-bottom:20px}
+        .contact-icon{width:50px;height:50px;background:#f97316;color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+        .contact-item div h4{color:#1e293b;margin-bottom:5px}
+        .contact-item div p{color:#64748b}
+        .contact-form{background:#f8fafc;padding:40px;border-radius:16px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;margin-bottom:8px;font-weight:600;color:#1e293b}
+        .form-group input,.form-group textarea{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;transition:border-color 0.3s}
+        .form-group input:focus,.form-group textarea:focus{outline:none;border-color:#f97316}
+        .form-group textarea{resize:vertical;min-height:120px}
+        .cart-sidebar{position:fixed;top:0;right:-350px;width:350px;height:100vh;background:white;box-shadow:-5px 0 20px rgba(0,0,0,0.1);transition:right 0.3s;z-index:2000;padding:20px;overflow-y:auto}
         .cart-sidebar.open{right:0}
+        .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #e2e8f0}
+        .cart-item{display:flex;gap:15px;margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #e2e8f0}
+        .cart-item-info{flex:1}
+        .cart-item-name{font-weight:600;color:#1e293b;margin-bottom:5px}
+        .cart-item-price{color:#f97316;font-weight:700}
+        .remove-btn{background:#ef4444;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-size:0.8rem}
+        .cart-total{font-size:1.3rem;font-weight:800;color:#1e293b;margin:20px 0;padding-top:15px;border-top:2px solid #e2e8f0}
+        .checkout-btn{width:100%;background:#22c55e;color:white;border:none;padding:15px;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer}
         .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;z-index:1500}
         .overlay.active{display:block}
-        @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.hero h1{font-size:1.8rem}}
+        footer{background:#0f172a;color:white;padding:60px 0 20px}
+        .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px}
+        .footer-section h4{color:#f97316;margin-bottom:15px}
+        .footer-section p,.footer-section a{color:#94a3b8;text-decoration:none;line-height:1.8}
+        .footer-section a:hover{color:#f97316}
+        .footer-bottom{text-align:center;padding-top:20px;border-top:1px solid #1e293b;color:#64748b}
+        @media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:30px}.hero h1{font-size:2rem}.nav-links{display:none}}
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Madiba Motor Spares</div>
-                <div class="cart" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></div>
+                <div class="logo">🚗 Madiba<span>Motor</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#vehicles">Car Models</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#features">Why Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">🛒 <span class="cart-count" id="cartCount">0</span></div>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Quality Car Parts for Every Journey</h1>
-            <p>South Africa's Trusted Motor Spares Store</p>
-            <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
-        </div>
-    </section>
-
-    <section class="section" id="products">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Products</h2>
-            </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <h3>Brake Pads - Front</h3>
-                    <p>Toyota Hilux 2016-2023</p>
-                    <div class="price">R450</div>
-                    <button class="add-cart" onclick="addToCart('Brake Pads - Front',450)">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <h3>Brake Discs - Pair</h3>
-                    <p>VW Golf 7 2013-2020</p>
-                    <div class="price">R890</div>
-                    <button class="add-cart" onclick="addToCart('Brake Discs - Pair',890)">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <h3>Oil Filter</h3>
-                    <p>Universal Petrol Engines</p>
-                    <div class="price">R85</div>
-                    <button class="add-cart" onclick="addToCart('Oil Filter',85)">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <h3>Air Filter</h3>
-                    <p>Toyota Corolla 2014-2019</p>
-                    <div class="price">R120</div>
-                    <button class="add-cart" onclick="addToCart('Air Filter',120)">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <h3>Spark Plugs - Set of 4</h3>
-                    <p>BMW 3 Series F30</p>
-                    <div class="price">R280</div>
-                    <button class="add-cart" onclick="addToCart('Spark Plugs - Set of 4',280)">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <h3>Car Battery - 12V 60Ah</h3>
-                    <p>Universal Fit</p>
-                    <div class="price">R1450</div>
-                    <button class="add-cart" onclick="addToCart('Car Battery - 12V 60Ah',1450)">Add to Cart</button>
-                </div>
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Quality Car Parts for <span>Every Journey</span></h1>
+            <p>South Africa's Trusted Motor Spares Store. Find the perfect parts for your vehicle with our expert selection.</p>
+            <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Browse Parts</button>
+            <div class="stats">
+                <div class="stat"><h3>50K+</h3><p>Parts Available</p></div>
+                <div class="stat"><h3>24h</h3><p>Fast Delivery</p></div>
+                <div class="stat"><h3>100%</h3><p>Genuine Parts</p></div>
+                <div class="stat"><h3>15K+</h3><p>Happy Customers</p></div>
             </div>
         </div>
     </section>
 
-    <section class="section features">
+    <section class="vehicle-section" id="vehicles">
         <div class="container">
             <div class="section-title">
-                <h2 style="color:white">Why Choose Us</h2>
+                <h2>Find Parts For Your Vehicle</h2>
+                <p>Select your car model to browse compatible parts</p>
+            </div>
+            <div class="vehicle-tabs">
+                <button class="vehicle-tab active" onclick="filterVehicles('all')">All</button>
+                <button class="vehicle-tab" onclick="filterVehicles('toyota')">Toyota</button>
+                <button class="vehicle-tab" onclick="filterVehicles('suzuki')">Suzuki</button>
+                <button class="vehicle-tab" onclick="filterVehicles('renault')">Renault</button>
+                <button class="vehicle-tab" onclick="filterVehicles('nissan')">Nissan</button>
+            </div>
+            <div class="vehicle-grid" id="vehicleGrid">
+                <div class="vehicle-card" data-brand="toyota">
+                    <h4>🚙 Toyota Starlet</h4>
+                    <p>2020-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="toyota">
+                    <h4>🚙 Toyota Avanza</h4>
+                    <p>2012-2022</p>
+                </div>
+                <div class="vehicle-card" data-brand="toyota">
+                    <h4>🚙 Toyota Etios</h4>
+                    <p>2012-2020</p>
+                </div>
+                <div class="vehicle-card" data-brand="toyota">
+                    <h4>🚙 Toyota Rumion</h4>
+                    <p>2021-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="suzuki">
+                    <h4>🚗 Suzuki Swift</h4>
+                    <p>2018-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="suzuki">
+                    <h4>🚗 Suzuki Baleno</h4>
+                    <p>2016-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="suzuki">
+                    <h4>🚗 Suzuki Ertiga</h4>
+                    <p>2019-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="renault">
+                    <h4>🚕 Renault Kwid</h4>
+                    <p>2016-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="renault">
+                    <h4>🚕 Renault Triber</h4>
+                    <p>2019-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="renault">
+                    <h4>🚕 Renault Kiger</h4>
+                    <p>2021-2023</p>
+                </div>
+                <div class="vehicle-card" data-brand="nissan">
+                    <h4>🚙 Nissan Almera</h4>
+                    <p>2013-2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Auto Parts</h2>
+                <p>Browse our extensive collection of high-quality car parts</p>
+            </div>
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="filterProducts('all')">All</button>
+                <button class="category-tab" onclick="filterProducts('brakes')">Brakes</button>
+                <button class="category-tab" onclick="filterProducts('oils')">Oils</button>
+                <button class="category-tab" onclick="filterProducts('engine')">Engine</button>
+                <button class="category-tab" onclick="filterProducts('electrical')">Electrical</button>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <div class="product-card" data-category="brakes">
+                    <div class="product-brand">Ferodo</div>
+                    <div class="product-name">Ferodo Brake Pads - Front</div>
+                    <div class="product-fit">Fits: Toyota, Suzuki, Renault</div>
+                    <div class="product-footer">
+                        <span class="product-price">R450</span>
+                        <button class="add-btn" onclick="addToCart('Ferodo Brake Pads - Front', 450)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="brakes">
+                    <div class="product-brand">Safeline</div>
+                    <div class="product-name">Safeline Brake Discs - Pair</div>
+                    <div class="product-fit">Fits: Most popular models</div>
+                    <div class="product-footer">
+                        <span class="product-price">R890</span>
+                        <button class="add-btn" onclick="addToCart('Safeline Brake Discs - Pair', 890)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="oils">
+                    <div class="product-brand">Shell Helix</div>
+                    <div class="product-name">Shell Helix HX3 20W-50</div>
+                    <div class="product-fit">Mineral motor oil - 5L</div>
+                    <div class="product-footer">
+                        <span class="product-price">R280</span>
+                        <button class="add-btn" onclick="addToCart('Shell Helix HX3 20W-50', 280)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="oils">
+                    <div class="product-brand">Shell Helix</div>
+                    <div class="product-name">Shell Helix HX5 15W-40</div>
+                    <div class="product-fit">Semi-synthetic - 5L</div>
+                    <div class="product-footer">
+                        <span class="product-price">R450</span>
+                        <button class="add-btn" onclick="addToCart('Shell Helix HX5 15W-40', 450)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="oils">
+                    <div class="product-brand">GTX</div>
+                    <div class="product-name">Castrol GTX 15W-40</div>
+                    <div class="product-fit">Engine oil - 5L</div>
+                    <div class="product-footer">
+                        <span class="product-price">R320</span>
+                        <button class="add-btn" onclick="addToCart('Castrol GTX 15W-40', 320)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="engine">
+                    <div class="product-brand">NGK</div>
+                    <div class="product-name">NGK Spark Plugs - Set of 4</div>
+                    <div class="product-fit">Iridium - Long life</div>
+                    <div class="product-footer">
+                        <span class="product-price">R380</span>
+                        <button class="add-btn" onclick="addToCart('NGK Spark Plugs - Set of 4', 380)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="engine">
+                    <div class="product-brand">Bosch</div>
+                    <div class="product-name">Bosch Spark Plugs - Set</div>
+                    <div class="product-fit">Copper - Standard</div>
+                    <div class="product-footer">
+                        <span class="product-price">R280</span>
+                        <button class="add-btn" onclick="addToCart('Bosch Spark Plugs - Set', 280)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="engine">
+                    <div class="product-brand">Mann Filter</div>
+                    <div class="product-name">Oil Filter - Spin-on</div>
+                    <div class="product-fit">Universal fit</div>
+                    <div class="product-footer">
+                        <span class="product-price">R85</span>
+                        <button class="add-btn" onclick="addToCart('Oil Filter - Spin-on', 85)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="electrical">
+                    <div class="product-brand">Willard</div>
+                    <div class="product-name">Car Battery - 12V 60Ah</div>
+                    <div class="product-fit">Maintenance free</div>
+                    <div class="product-footer">
+                        <span class="product-price">R1450</span>
+                        <button class="add-btn" onclick="addToCart('Car Battery - 12V 60Ah', 1450)">Add</button>
+                    </div>
+                </div>
+                <div class="product-card" data-category="brakes">
+                    <div class="product-brand">Ferodo</div>
+                    <div class="product-name">Ferodo Brake Shoes - Rear</div>
+                    <div class="product-fit">Drum brake systems</div>
+                    <div class="product-footer">
+                        <span class="product-price">R320</span>
+                        <button class="add-btn" onclick="addToCart('Ferodo Brake Shoes - Rear', 320)">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color:white">The Madiba Motor Spares Difference</h2>
+                <p style="color:rgba(255,255,255,0.8)">We're committed to providing South African drivers with the best auto parts shopping experience</p>
             </div>
             <div class="features-grid">
-                <div>
-                    <h3>✓ Quality Guaranteed</h3>
-                    <p>OEM certified parts</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>All parts are OEM or OE-quality certified, tested for South African road conditions</p>
                 </div>
-                <div>
-                    <h3>✓ Fast Delivery</h3>
-                    <p>2-5 business days nationwide</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Nationwide delivery within 2-5 business days. Free shipping on orders over R1500</p>
                 </div>
-                <div>
-                    <h3>✓ Expert Support</h3>
-                    <p>Professional assistance</p>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🔧</div>
+                    <h3>Expert Support</h3>
+                    <p>Our team of automotive experts is available to help you find the right parts</p>
                 </div>
-                <div>
-                    <h3>✓ Best Prices</h3>
-                    <p>Competitive pricing</p>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive pricing with regular promotions and discounts for loyal customers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>30-Day Returns</h3>
+                    <p>Hassle-free returns on unused items in original packaging within 30 days</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Secure Payment</h3>
+                    <p>Multiple payment options including EFT, cards, Payflex, and cash on delivery</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Fitment Guarantee</h3>
+                    <p>Use our vehicle search to ensure perfect compatibility with your car</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>50,000+ Parts</h3>
+                    <p>Extensive inventory covering all major vehicle brands and models in South Africa</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="contact">
+    <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contact Us</h2>
+                <p>Have questions about a part or need help finding the right fit? Our team is here to help</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
                     <h3>Get In Touch</h3>
-                    <p><strong>Phone:</strong> 031 919 2491</p>
-                    <p><strong>Email:</strong> madibaspares46@gmail.com</p>
-                    <p><strong>Address:</strong> 3 Alexander Road, Isipingo Rail, 4130</p>
-                    <p><strong>Hours:</strong> Mon-Fri 8am-5pm, Sat 9am-1pm</p>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>031 919 2491<br>Mon-Fri: 8am - 5pm<br>Sat: 9am - 1pm</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>madibaspares46@gmail.com<br>We reply within 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>3 Alexander Road<br>Isipingo Rail, 4130<br>KwaZulu-Natal, South Africa</p>
+                        </div>
+                    </div>
                 </div>
-                <form onsubmit="event.preventDefault();alert('Message sent!');this.reset()">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <input type="tel" placeholder="Phone Number">
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form onsubmit="event.preventDefault(); alert('Message sent! We will contact you soon.'); this.reset();">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="082 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width:100%">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
-
     <footer>
         <div class="container">
-            <p>&copy; 2024 Madiba Motor Spares. All rights reserved.</p>
-            <p>3 Alexander Road, Isipingo Rail, 4130 | 031 919 2491 | madibaspares46@gmail.com</p>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>🚗 MadibaMotor</h4>
+                    <p>South Africa's trusted source for quality motor spares. 50,000+ parts for all makes and models.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <p><a href="#products">Brake Systems</a><br>
+                    <a href="#products">Engine Parts</a><br>
+                    <a href="#products">Oils & Lubricants</a><br>
+                    <a href="#products">Electrical</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <p><a href="#contact">Contact Us</a><br>
+                    <a href="#">Shipping Info</a><br>
+                    <a href="#">Returns Policy</a><br>
+                    <a href="#">FAQs</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 031 919 2491<br>
+                    ✉️ madibaspares46@gmail.com<br>
+                    📍 3 Alexander Road, Isipingo Rail, 4130</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Madiba Motor Spares. All rights reserved. | Designed with ❤️ in South Africa</p>
+            </div>
         </div>
     </footer>
 
     <div class="overlay" id="overlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
-        <h3>Your Cart</h3>
+        <div class="cart-header">
+            <h3>🛒 Your Cart</h3>
+            <button onclick="toggleCart()" style="background:none;border:none;font-size:1.5rem;cursor:pointer">✕</button>
+        </div>
         <div id="cartItems"></div>
-        <hr>
-        <p><strong>Total: R<span id="cartTotal">0</span></strong></p>
-        <button class="btn" onclick="checkout()" style="width:100%;margin-top:10px">Checkout</button>
+        <div class="cart-total">Total: R<span id="cartTotal">0</span></div>
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
     </div>
 
     <script>
-        let cart=[];
-        function addToCart(name,price){
-            cart.push({name,price});
+        let cart = [];
+        
+        function addToCart(name, price) {
+            cart.push({name, price});
             updateCart();
-            alert(name+' added to cart!');
+            alert(name + ' added to cart!');
         }
-        function updateCart(){
-            document.getElementById('cartCount').innerText=cart.length;
-            let items=document.getElementById('cartItems');
-            let total=0;
-            items.innerHTML=cart.map((item,i)=>{
-                total+=item.price;
-                return '<p>'+item.name+' - R'+item.price+' <button onclick="removeItem('+i+')" style="float:right;background:red;color:white;border:none;padding:2px 8px;cursor:pointer">X</button></p>';
-            }).join('');
-            document.getElementById('cartTotal').innerText=total;
+        
+        function updateCart() {
+            document.getElementById('cartCount').innerText = cart.length;
+            let items = document.getElementById('cartItems');
+            let total = 0;
+            
+            if (cart.length === 0) {
+                items.innerHTML = '<p style="text-align:center;color:#64748b;padding:20px;">Your cart is empty</p>';
+            } else {
+                items.innerHTML = cart.map((item, i) => {
+                    total += item.price;
+                    return '<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">' + item.name + '</div><div class="cart-item-price">R' + item.price + '</div></div><button class="remove-btn" onclick="removeItem(' + i + ')">Remove</button></div>';
+                }).join('');
+            }
+            
+            document.getElementById('cartTotal').innerText = total;
         }
-        function removeItem(index){
-            cart.splice(index,1);
+        
+        function removeItem(index) {
+            cart.splice(index, 1);
             updateCart();
         }
-        function toggleCart(){
+        
+        function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
         }
-        function checkout(){
-            if(cart.length===0){alert('Cart is empty!');return;}
-            let total=cart.reduce((sum,item)=>sum+item.price,0);
-            alert('Order Total: R'+total+'\\n\\nContact us to complete order:\\nPhone: 031 919 2491\\nEmail: madibaspares46@gmail.com');
+        
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert('Order Total: R' + total + '\n\nTo complete your order:\n📞 Call: 031 919 2491\n✉️ Email: madibaspares46@gmail.com\n\nWe accept EFT, Card, or Cash on Delivery');
+        }
+        
+        function filterVehicles(brand) {
+            document.querySelectorAll('.vehicle-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            let cards = document.querySelectorAll('.vehicle-card');
+            cards.forEach(card => {
+                if (brand === 'all' || card.dataset.brand === brand) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterProducts(category) {
+            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            let cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
 </html>
+
